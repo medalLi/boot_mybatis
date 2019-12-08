@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<!-- 引入 echarts.js -->
+<script src="echartsjs/echarts.js"></script>
+<div><button onclick="addData()">数量增加</button> </div>
+<script src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    // 图表使用
+    // 指定图表的配置项和数据
+    var datas =[5,20,36,10,10,20]
+    var option ={
+        // 标题
+        title:{
+            text:'Echarts数据动态更新'
+        },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{
+                label:{
+                    show:true
+                }
+            },
+            position:function (point,params,dom,rect,size) {
+                // 固定在顶部
+                return [point[0],'10%']
+            }
+        },
+        // 工具箱
+        toolbox:{
+            show:true,
+            feature:{
+                saveAsImage:{
+                    show:true
+                }
+            }
+        },
+        // 图例
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis:{
+            axisPointer:{
+                label:{
+                    show:true
+                }
+            }
+        },
+        // 数据
+        series:[{
+            name:'销量',
+            type:'bar',
+            data:datas
+        }]
+    };
+    myChart.setOption(option);
+
+    function addData() {
+        var inc = Math.floor(Math.random()*10)
+        for(var i in datas){
+            datas[i] =datas[i]+inc;
+        }
+        myChart.clear();
+        myChart.setOption(option)
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis?useUnicode=true&useJDBCCompliantTimezoneShift=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: centos
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      stat-view-servlet:
+        allow: 127.0.0.1
+mybatis:
+  type-aliases-package: com.lxz.boot.demo.model
+  mapper-locations: classpath:/mybatis-mappers/*
+  configuration:
+    mapUnderscoreToCamelCase: true
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 30m
